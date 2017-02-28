@@ -31,6 +31,8 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'registerAgent.apps.RegisterAgentConfig',
+    'registerCustomer.apps.RegisterCustomerConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -76,9 +78,11 @@ WSGI_APPLICATION = 'nyepesi.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'OPTIONS':{
-            'read_default_file' : '/../db/db.cnf',
-        },
+        'NAME': 'nyepesi',
+        'USER': 'root',
+        'PASSWORD': '!*micn!4eye',
+        'PORT': '8080',
+        'HOST': 'localhost',
     }
 }
 
