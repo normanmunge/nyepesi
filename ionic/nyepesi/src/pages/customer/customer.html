@@ -1,0 +1,39 @@
+<ion-header>
+  <ion-navbar color="dark">
+    <ion-title>Register Agent</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content class="login-content" padding>
+  <div class="login-box">
+
+    <form (ngSubmit)="register()" #registerForm="ngForm">
+      <ion-row>
+        <ion-col>
+          <ion-list inset>
+
+            <ion-item>
+              <ion-input type="text" placeholder="First Name" name="firstname" [(ngModel)]="registerCredentials.firstname" required></ion-input>
+            </ion-item>
+
+            <ion-item>
+              <ion-input type="text" placeholder="Last Name" name="secondname" [(ngModel)]="registerCredentials.secondname" required></ion-input>
+            </ion-item>
+
+            <ion-item>
+              <ion-input type="number" placeholder="Phone Number" name="phonenumber" [(ngModel)]="registerCredentials.phonenumber" required></ion-input>
+            </ion-item>
+
+          </ion-list>
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col class="signup-col">
+          <button ion-button class="submit-btn" full type="submit" [disabled]="!registerForm.form.valid">Register Customer</button>
+        </ion-col>
+      </ion-row>
+
+    </form>
+  </div>
+</ion-content>

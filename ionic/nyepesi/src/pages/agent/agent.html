@@ -1,0 +1,60 @@
+<ion-header>
+  <ion-navbar color="dark">
+    <ion-title>Register Agent</ion-title>
+    <ion-buttons end>
+      <button ion-button (click)="logout()">
+        <ion-icon name="log-out"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+<ion-content class="login-content" padding>
+  <div class="login-box">
+
+    <form (ngSubmit)="register()" #registerForm="ngForm">
+      <ion-row>
+        <ion-col>
+          <ion-list inset>
+
+            <ion-item>
+              <ion-input type="text" placeholder="First Name" name="firstname" [(ngModel)]="registerCredentials.firstname" required></ion-input>
+            </ion-item>
+
+            <ion-item>
+              <ion-input type="text" placeholder="Last Name" name="secondname" [(ngModel)]="registerCredentials.secondname" required></ion-input>
+            </ion-item>
+
+            <ion-item>
+              <ion-input type="number" placeholder="Phone Number" name="phonenumber" [(ngModel)]="registerCredentials.phonenumber" required></ion-input>
+            </ion-item>
+
+            <ion-item>
+              <ion-input type="email" placeholder="Email" name="phonenumber" [(ngModel)]="registerCredentials.email" required></ion-input>
+            </ion-item>
+
+            <ion-item>
+              <ion-input type="text" placeholder="County" name="county" [(ngModel)]="registerCredentials.county" required></ion-input>
+            </ion-item>
+
+            <ion-item>
+              <ion-input type="text" placeholder="Constituency" name="constituency" [(ngModel)]="registerCredentials.constituency" required></ion-input>
+            </ion-item>
+
+            <ion-item>
+              <ion-input type="text" placeholder="Locality" name="locality" [(ngModel)]="registerCredentials.locality" required></ion-input>
+            </ion-item>
+
+          </ion-list>
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col class="signup-col">
+          <button ion-button class="submit-btn" full type="submit" [disabled]="!registerForm.form.valid">Register Agent</button>
+        </ion-col>
+      </ion-row>
+
+    </form>
+  </div>
+</ion-content>
