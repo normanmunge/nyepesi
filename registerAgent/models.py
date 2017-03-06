@@ -9,5 +9,6 @@ class registerAgent(models.Model):
     County = models.CharField(max_length = 250)
     Constituency = models.CharField(max_length = 250)
     Locality = models.CharField(max_length = 250)
-    isActive = models.CharField(max_length = 250)
-    regDate = models.CharField(max_length = 250)
+
+    def __str__(self):
+        return self.F_Name+' '+self.L_Name
