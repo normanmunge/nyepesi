@@ -1,0 +1,24 @@
+<ion-view view-title="Profile">
+    <ion-content ng-class="{expanded:$scope.isExpanded}">
+        <div class="hero slide-up" style="background-image: url('assets/img/logo.png');">
+            <div class="content">
+                <h3><a class="light">Norman Munge</a></h3>
+                <h4>Agent</h4>
+            </div>
+        </div>
+        <div class="tabs tabs-dark tabs-icon-top static">
+            <a ui-sref="app.friends" class="tab-item">
+                <i class="icon ion-android-people"></i> Friends
+            </a>
+        </div>
+        <h4 class="content padding double-padding-x">List of customers</h4>
+        <div class="list animate-fade-slide-in-right">
+            <a ui-sref="app.friends" class="item item-avatar item-icon-right">
+                <img src="assets/img/jon-snow.jpg">
+                <h2>Jon Snow</h2>
+                <p>Da illest illegitimate</p>
+                <i class="icon ion-person muted"></i>
+            </a>
+        </div>
+    </ion-content>
+</ion-view>

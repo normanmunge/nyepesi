@@ -1,43 +1,39 @@
 import { Component } from '@angular/core';
-import { NavController, AlertController, LoadingController, Loading, NavParams } from 'ionic-angular';
+import {Validators, FormBuilder, FormGroup } from '@angular/forms';
+import { NavController, LoadingController, Loading } from 'ionic-angular';
 import {AuthService} from '../../providers/auth-service';
-import {AgentPage} from '../agent/agent';
 
 
 @Component({
   selector: 'page-login',
-  templateUrl: 'login.html'
+  templateUrl: './login.html',
+  providers: [AuthService]
 })
 
 export class LoginPage {
   loading: Loading;
-  registerCredentials = {email: '', password: ''};
+  private login: FormGroup;
 
-  constructor(public navCtrl: NavController,
-              public navParams: NavParams,
+  constructor(
               private auth:AuthService,
-              private alertCtrl: AlertController,
-              private loadingCtrl: LoadingController) {}
+              private navCtrl: NavController,
+              private formBuilder: FormBuilder,
+              private loadingCtrl: LoadingController) {
+                this.login = formBuilder.group({
+                  phone: ['',Validators.required],
+                  password: ['', Validators.required],
+                });
+              }
 
 public forgotAccount(){
   //this.nav.push(ForgotLoginPage);
+  console.log('forgotAccount');
 }
 
-public login(){
-  this.showLoading()
-  this.auth.login(this.registerCredentials).subscribe(allowed =>{
-    if(allowed){
-      setTimeout(()=>{
-        this.loading.dismiss();
-        this.navCtrl.setRoot(AgentPage)
-      });
-    } else{
-      this.showError("Access Denied");
-    }
-  },
-  error =>{
-    this.showError(error);
-  });
+public loginForm(){
+  this.showLoading();
+  console.log('ujinga');
+
 }
 
 showLoading(){
@@ -47,18 +43,6 @@ showLoading(){
   this.loading.present();
 }
 
-showError(text){
-  setTimeout(()=>{
-    this.loading.dismiss();
-  });
-
-  let alert = this.alertCtrl.create({
-    title: 'Failed',
-    subTitle: text,
-    buttons: ['OK']
-  });
-  alert.present(prompt);
-}
 
 /*
   ionViewDidLoad() {
