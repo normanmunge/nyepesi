@@ -1,0 +1,7 @@
+[client]
+database = nyepesi
+user = root
+password = !*micn!4eye
+host = localhost
+port = 8080
+default-character-set = utf8
