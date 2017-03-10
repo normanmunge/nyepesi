@@ -1,6 +1,7 @@
 import { TabsPage } from './tabs/tabs';
 import { ListMasterPage } from './list-master/list-master';
 import { SearchPage } from './search/search';
+import { MenuPage } from './menu/menu';
 import { SettingsPage } from './settings/settings';
 import { LoginPage } from './login/login';
 
@@ -9,7 +10,7 @@ export const FirstRunPage = LoginPage;
 
 // The main page the user will see as they use the app over a long period of time.
 // Change this if not using tabs
-export const MainPage = TabsPage;
+export const MainPage = MenuPage;
 
 // The initial root pages for our tabs (remove if not using tabs)
 export const Tab1Root = ListMasterPage;

@@ -10,6 +10,7 @@ import { Tab3Root } from '../pages';
   templateUrl: 'tabs.html',
   providers: [Items]
 })
+
 export class TabsPage {
   tab1Root: any = Tab1Root;
   //tab2Root: any = Tab2Root;
