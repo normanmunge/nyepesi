@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, ToastController } from 'ionic-angular';
+import { NavController, ToastController, LoadingController } from 'ionic-angular';
 import {Validators, FormBuilder, FormGroup } from '@angular/forms';
 import { TranslateService } from 'ng2-translate/ng2-translate';
 
@@ -25,6 +25,7 @@ export class LoginPage {
               public user: User,
               private formBuilder: FormBuilder,
               public toastCtrl: ToastController,
+              public loadingCtrl: LoadingController,
               public translateService: TranslateService) {
 
     this.translateService.get('LOGIN_ERROR').subscribe((value) => {
@@ -37,6 +38,8 @@ export class LoginPage {
     });
   }
 
+  rootPage :any;
+
   // Attempt to login in through our User service
   doLogin() {
     var phone = this.account.value.phone;
@@ -44,7 +47,13 @@ export class LoginPage {
     this.login = "username="+phone+"&password="+password+"&grant_type=password&client_id=fjTgW84SioZFHV5hG0u3XPiCdNqELDjxI4Z9sH5w"
     //"phone="+phone+"&password="+password+"&grant_type=password&client_id=vqUG5XpzODxbtwFFY9qrOvhOxjPabJBEj5zcSjZL";
     this.user.login(this.login).subscribe((resp) => {
-      //console.log(resp.json());
+      console.log(resp.json());
+      let loader = this.loadingCtrl.create({
+        content: "Logging In",
+        duration: 2000
+      });
+      loader.present();
+
       this.navCtrl.push(MainPage);
     }, (err) => {
       this.navCtrl.push(FirstRunPage);
@@ -57,4 +66,15 @@ export class LoginPage {
       toast.present();
     });
   }
+
+  checkUserType(){
+    /*
+    var userid = jwtHelper.decodeToken(token).user_id;
+    this.api.get().then(function(response){
+      if(response.status === 200){}
+    })
+    */
+  }
+
+
 }

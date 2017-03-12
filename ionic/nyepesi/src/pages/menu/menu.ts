@@ -4,8 +4,9 @@ import { NavController, Nav } from 'ionic-angular';
 import { ContentPage } from '../content/content';
 import { TabsPage } from '../tabs/tabs';
 
+import {SearchPage} from '../search/search';
 import { LoginPage } from '../login/login';
-import { SignupPage } from '../signup/signup';
+import { SettingsPage } from '../settings/settings';
 
 /*
   Generated class for the Menu page.
@@ -29,7 +30,7 @@ export class MenuPage {
     // used for an example of ngFor and navigation
     this.pages = [
       { title: 'Profile', component: LoginPage },
-      { title: 'Signup', component: SignupPage }
+      { title: 'Settings', component: SettingsPage }
     ];
   }
 
@@ -41,5 +42,9 @@ export class MenuPage {
      // Reset the content nav to have just this page
      // we wouldn't want the back button to show in this scenario
      this.nav.setRoot(page.component);
+   }
+
+   searchpage(){
+     this.navCtrl.push(SearchPage);
    }
 }

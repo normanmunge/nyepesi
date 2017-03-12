@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, ModalController,NavParams } from 'ionic-angular';
+import { NavController, ModalController,NavParams,ActionSheetController } from 'ionic-angular';
 
 
 import { ItemCreatePage } from '../item-create/item-create';
@@ -15,7 +15,7 @@ import { Api } from '../../providers/api';
 export class ListMasterPage {
   currentItems: {};
 
-  constructor(public navCtrl: NavController, public items: Items, public modalCtrl: ModalController, public navParams: NavParams, public api: Api)
+  constructor(public actionSheetCtrl: ActionSheetController, public navCtrl: NavController, public items: Items, public modalCtrl: ModalController, public navParams: NavParams, public api: Api)
   {}
 
   /**
@@ -44,6 +44,32 @@ export class ListMasterPage {
       }, err => {
         console.error('ERROR', err);
       });
+  }
+
+  presentActionSheet(){
+    let actionSheet = this.actionSheetCtrl.create({
+      title: 'Customer',
+      buttons:[
+        {
+          text: 'Edit',
+          handler: () =>{
+            console.log('Edit Customer');
+          }
+        },{
+          text: 'Delete',
+          handler: () =>{
+            console.log('Delete Customer');
+          }
+        },{
+          text: 'Cancel',
+          role: 'cancel',
+          handler: () =>{
+            console.log('Cancel');
+          }
+        }
+      ]
+    });
+    actionSheet.present();
   }
 
   /**

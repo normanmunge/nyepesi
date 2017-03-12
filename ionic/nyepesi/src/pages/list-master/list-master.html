@@ -1,22 +1,13 @@
-<ion-header>
-
-  <ion-navbar>
-    <ion-title>List of Customers</ion-title>
-
-    <ion-buttons end>
-      <button ion-button icon-only (click)="addItem()">
-        <ion-icon name="add"></ion-icon>
-      </button>
-    </ion-buttons>
-  </ion-navbar>
-
-</ion-header>
-
+<ion-header></ion-header>
 <ion-content>
-
+  <!--
+  <ion-fab right bottom>
+    <button ion-fab mini><ion-icon name="add"></ion-icon></button>
+  </ion-fab>
+-->
   <ion-list>
     <ion-item-sliding *ngFor="let item of currentItems">
-      <button ion-item>
+      <button (click)="presentActionSheet()" ion-item>
         <ion-avatar item-left>
           <ion-icon name="person"></ion-icon>
         </ion-avatar>
@@ -25,11 +16,17 @@
         <ion-note item-right>07{{item.Phonenumber}}</ion-note>
       </button>
 
+
+      <!--
       <ion-item-options>
         <button ion-button color="danger" (click)="deleteItem(item)">
           {{ 'DELETE_BUTTON' | translate }}
         </button>
       </ion-item-options>
+    -->
     </ion-item-sliding>
   </ion-list>
+  <ion-fab right bottom>
+    <button ion-fab mini><ion-icon name="add"></ion-icon></button>
+  </ion-fab>
 </ion-content>

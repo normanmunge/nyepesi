@@ -18,6 +18,7 @@ import { MenuPage } from '../pages/menu/menu';
 import { SettingsPage } from '../pages/settings/settings';
 import { SearchPage } from '../pages/search/search';
 
+
 import { TranslateService } from 'ng2-translate/ng2-translate';
 
 @Component({
@@ -44,13 +45,14 @@ export class MyApp {
     { title: 'Search', component: SearchPage }
   ]
 
-  constructor(translate: TranslateService, platform: Platform, settings: Settings, config: Config) {
+  constructor( translate: TranslateService, platform: Platform, settings: Settings, config: Config) {
     // Set the default language for translation strings, and the current language.
     translate.setDefaultLang('en');
     translate.use('en')
 
     translate.get(['BACK_BUTTON_TEXT']).subscribe(values => {
       config.set('ios', 'backButtonText', values.BACK_BUTTON_TEXT);
+
     });
 
     platform.ready().then(() => {

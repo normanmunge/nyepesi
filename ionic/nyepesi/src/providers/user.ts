@@ -4,6 +4,7 @@ import { Api } from './api';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/toPromise';
 
+
 @Injectable()
 export class User {
   _user: any;
@@ -32,12 +33,31 @@ export class User {
           //console.log(res.json());
           window.localStorage.setItem('user', res.json().token);
           this.isLoggedIn = true;
+          this.userLevel();
         }
       }, err => {
         //console.error('ERROR', err);
       });
 
     return seq;
+  }
+
+  userLevel(){
+    let token = localStorage.getItem('user');
+
+    let headers = new Headers({
+      'Content-Type': 'application/x-www-form-urlencoded',
+      'Bearer':'${token}'
+    });
+
+
+    let options = new RequestOptions({headers: headers});
+
+    this.api.getAccessLevel('o/authorize/', options).subscribe(res => {
+            console.log(res);
+          }, err => {
+            //console.error('ERROR', err);
+          });
   }
 
   /**
