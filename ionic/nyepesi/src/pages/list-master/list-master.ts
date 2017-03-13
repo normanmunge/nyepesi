@@ -3,6 +3,7 @@ import { NavController, ModalController,NavParams,ActionSheetController } from '
 
 
 import { ItemCreatePage } from '../item-create/item-create';
+import { AgentCreatePage } from '../agent-create/agent-create';
 
 import { Items } from '../../providers/items';
 import { Api } from '../../providers/api';
@@ -83,6 +84,17 @@ export class ListMasterPage {
     addModal.onDidDismiss(item => {
       if (item) {
         this.add(this.newCustomer);
+      }
+    })
+    addModal.present();
+  }
+
+   newAgent:{}
+  addAgent() {
+    let addModal = this.modalCtrl.create(AgentCreatePage);
+    addModal.onDidDismiss(agent => {
+      if (agent) {
+        this.add(this.newAgent);
       }
     })
     addModal.present();

@@ -32,6 +32,10 @@ export class AgentCreatePage {
       f_name: ['', Validators.required],
       l_name: ['', Validators.required],
       phone: ['', Validators.required],
+      email: ['', Validators.required],
+      county: ['', Validators.required],
+      constituency: ['', Validators.required],
+      locality: ['', Validators.required]
     });
 
     // Watch the form for changes, and
@@ -50,21 +54,29 @@ export class AgentCreatePage {
     this.viewCtrl.dismiss();
   }
 
-  // Create new customer
+
+  details:{};
+  // Create new agent
   private newUser = "New Agent Created"
   createAgent() {
     var firstname = this.form.value.f_name;
     var lastname = this.form.value.l_name;
     var phone = this.form.value.phone;
-    this.item = "F_Name="+firstname+"&L_Name="+lastname+"&Phonenumber="+phone
+    var email = this.form.value.email;
+    var county = this.form.value.county;
+    var constituency = this.form.value.constituency;
+    var locality = this.form.value.locality;
 
+
+    //this.item = {F_Name: firstname,L_Name: lastname,Phonenumber: phone,Email:email,County: county,Constituency:constituency,Localit:locality}
+    this.item = "F_Name="+firstname+"&L_Name="+lastname+"&Phonenumber="+phone+"&Email="+email+"&County="+county+"&Constituency="+constituency+"&Locality="+locality
     let headers = new Headers({
       'Content-Type': 'application/x-www-form-urlencoded',
     });
 
     let options = new RequestOptions({headers: headers});
 
-    let seq = this.api.post('api/customers/', this.item, options);
+    let seq = this.api.post('api/agents/', this.item, options);
 
     seq
       .subscribe(res => {
@@ -77,11 +89,12 @@ export class AgentCreatePage {
         toast.present();
 
         //push data to the list items page
+        /*
         this.navCtrl.push(ListMasterPage,{
           newdata: this.item
         });
         this.navCtrl.push(TabsPage, {index: "1"});
-
+        */
         //close the modal
         this.viewCtrl.dismiss(this.form.value);
         }, err => {

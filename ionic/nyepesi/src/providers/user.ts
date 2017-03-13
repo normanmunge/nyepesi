@@ -9,7 +9,7 @@ import 'rxjs/add/operator/toPromise';
 export class User {
   _user: any;
   public isLoggedIn;
-  constructor(public http: Http, public api: Api) {
+  constructor(public http: Http,public api: Api) {
      this.isLoggedIn = false
   }
 

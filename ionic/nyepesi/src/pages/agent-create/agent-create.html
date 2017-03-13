@@ -35,9 +35,21 @@
       <ion-item>
         <ion-input type="text" placeholder="Phone Number" formControlName="phone"></ion-input>
       </ion-item>
+      <ion-item>
+        <ion-input type="email" placeholder="Email" formControlName="email"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-input type="text" placeholder="County" formControlName="county"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-input type="text" placeholder="Constituency" formControlName="constituency"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-input type="text" placeholder="Locality" formControlName="locality"></ion-input>
+      </ion-item>
     </ion-list>
     <div padding>
-      <button ion-button color="primary" block type="submit" [disabled]="!form.valid">ADD</button>
+      <button ion-button color="primary" block type="submit" name="submit" [disabled]="!form.valid">ADD</button>
     </div>
   </form>
 </ion-content>
