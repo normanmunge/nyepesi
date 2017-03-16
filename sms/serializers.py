@@ -1,22 +1,24 @@
 from rest_framework import serializers
+from json import dumps, loads
 from .AfricasTalkingGateway import AfricasTalkingGateway,AfricasTalkingGatewayException
 
 
-class smsSerializer(AfricasTalkingGateway):
+#class smsSerializer(AfricasTalkingGateway):
+class sendSMS:
+    def __init__(self,Name,Phonenumber):
+        self.Name = Name
+        self.Phonenumber = Phonenumber
 
-    class sendSMS():
-        phonenumber = ''
-        f_name = ''
-        l_name = ''
 
+    def sendSMS(self):
         # Specify your login credentials
         username = "normanmunge"
         apikey   = "e99917d095881a6a3400380d124ef051e3383c51480e078ef9c1f9778badeca1"
 
         # Please ensure you include the country code (+254 for Kenya in this case)
-        to      = phonenumber
+        to      = self.Phonenumber
 
-        message = "Dear"+f_name + l_name +", welcome to NYEPESI, your reliable and trusted partner to send your goods fast. Happy to stay in touch"
+        message = "Dear agent, welcome to NYEPESI, your reliable and trusted partner to send your goods fast. Happy to stay in touch"
 
         # Create a new instance of our awesome gateway class
         gateway = AfricasTalkingGateway(username, apikey)

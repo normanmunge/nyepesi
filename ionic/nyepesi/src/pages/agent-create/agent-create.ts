@@ -24,8 +24,9 @@ export class AgentCreatePage {
   isReadyToSave: boolean;
 
   item: any;
-
+  smsitems: any;
   form: FormGroup;
+  number: any;
 
   constructor(public navCtrl: NavController, public viewCtrl: ViewController, public api: Api, formBuilder: FormBuilder,public toastCtrl: ToastController,) {
     this.form = formBuilder.group({
@@ -66,6 +67,7 @@ export class AgentCreatePage {
     var county = this.form.value.county;
     var constituency = this.form.value.constituency;
     var locality = this.form.value.locality;
+    var name = firstname+" "+lastname;
 
 
     //this.item = {F_Name: firstname,L_Name: lastname,Phonenumber: phone,Email:email,County: county,Constituency:constituency,Localit:locality}
@@ -87,7 +89,6 @@ export class AgentCreatePage {
           position: 'top'
         });
         toast.present();
-
         //push data to the list items page
         /*
         this.navCtrl.push(ListMasterPage,{

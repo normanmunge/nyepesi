@@ -6,6 +6,8 @@ import { TabsPage } from '../tabs/tabs';
 
 import {SearchPage} from '../search/search';
 import { LoginPage } from '../login/login';
+import { AgentCreatePage } from '../agent-create/agent-create';
+import { ItemCreatePage } from '../item-create/item-create';
 import { SettingsPage } from '../settings/settings';
 
 /*
@@ -22,6 +24,11 @@ export class MenuPage {
   // A reference to the ion-nav in our component
   @ViewChild(Nav) nav: Nav;
 
+  firstname: any = window.localStorage.getItem('firstname');
+  lastname: any = window.localStorage.getItem('lastname');
+  email: any = window.localStorage.getItem('email');
+  phone: any = window.localStorage.getItem('phone');
+
   rootPage: any = TabsPage;
 
   pages: Array<{title: string, component: any}>;
@@ -30,21 +37,36 @@ export class MenuPage {
     // used for an example of ngFor and navigation
     this.pages = [
       { title: 'Profile', component: LoginPage },
-      { title: 'Settings', component: SettingsPage }
+      { title: 'Register Agent', component: AgentCreatePage },
+      { title: 'List Agents', component: TabsPage },
+      { title: 'Register Customer', component: ItemCreatePage },
+      { title: 'List Customers', component: TabsPage }
     ];
   }
 
   ionViewDidLoad() {
-    console.log('Hello MenuPage Page');
+    var firstname: any = window.localStorage.getItem('firstname');
+    var lastname: any = window.localStorage.getItem('lastname');
+    var email: any = window.localStorage.getItem('email');
+    var phone: any = window.localStorage.getItem('phone');
   }
 
   openPage(page) {
      // Reset the content nav to have just this page
      // we wouldn't want the back button to show in this scenario
-     this.nav.setRoot(page.component);
+     //this.nav.setRoot(page.component);
+     this.navCtrl.push(page.component);
    }
 
    searchpage(){
      this.navCtrl.push(SearchPage);
+   }
+
+   /**
+    * Log the user out, which forgets the session
+    */
+   logout() {
+     window.localStorage.removeItem('user');
+     this.navCtrl.setRoot(LoginPage);
    }
 }

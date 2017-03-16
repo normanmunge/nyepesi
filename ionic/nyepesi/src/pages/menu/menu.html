@@ -3,8 +3,9 @@
     <ion-avatar item-left>
       <img [src]="assets/img/ian-avatar" />
     </ion-avatar>
-    <h6>normanmunge@gmail.com</h6>
-    <p>0712658102</p>
+    <h6>{{firstname}}&nbsp;{{lastname}}</h6>
+    <h6>{{email}}</h6>
+    <p>0{{phone}}</p>
     <ion-list class="menuList">
       <button menuClose ion-item *ngFor="let p of pages" (click)="openPage(p)">
         {{p.title}}

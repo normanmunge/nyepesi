@@ -48,6 +48,7 @@ export class LoginPage {
     //"phone="+phone+"&password="+password+"&grant_type=password&client_id=vqUG5XpzODxbtwFFY9qrOvhOxjPabJBEj5zcSjZL";
     this.user.login(this.login).subscribe((resp) => {
       console.log(resp.json());
+      this.user.userLevel(resp.json().access_token)
       let loader = this.loadingCtrl.create({
         content: "Logging In",
         duration: 2000
@@ -67,14 +68,6 @@ export class LoginPage {
     });
   }
 
-  checkUserType(){
-    /*
-    var userid = jwtHelper.decodeToken(token).user_id;
-    this.api.get().then(function(response){
-      if(response.status === 200){}
-    })
-    */
-  }
 
 
 }

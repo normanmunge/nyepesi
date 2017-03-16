@@ -5,6 +5,9 @@ from rest_framework import status
 from django.contrib.auth.models import User,Group
 from .models import registerAgent
 from .serializers import registerAgentSerializer,UserSerializer
+#from africastalking.AfricasTalkingGateway import (AfricasTalkingGateway, AfricasTalkingGatewayException)
+from .AfricasTalkingGateway import AfricasTalkingGateway,AfricasTalkingGatewayException
+
 
 
 
@@ -44,6 +47,7 @@ class registerAgentList(APIView):
             #Create the teacher
             dev = serializer.save()
             ser = registerAgentSerializer(dev)
+            self.sendSMS('254'+details['Phonenumber'],details['F_Name'],details['L_Name'])
             return Response(ser.data,status=status.HTTP_201_CREATED)
         else:
             print serializer.errors
@@ -63,3 +67,29 @@ class registerAgentList(APIView):
                                     "Locality":"s"
                                     }
                          })
+
+    def sendSMS(self,phonenumber,f_name,l_name):
+        # Specify your login credentials
+        username = "normanmunge"
+        apikey   = "e99917d095881a6a3400380d124ef051e3383c51480e078ef9c1f9778badeca1"
+
+        # Please ensure you include the country code (+254 for Kenya in this case)
+        to      = phonenumber
+        message = "Dear "+f_name+" "+ l_name+ ", welcome to NYEPESI, your reliable and trusted partner to send your goods fast. You are now an agent"
+
+        # Create a new instance of our awesome gateway class
+        gateway = AfricasTalkingGateway(username, apikey)
+
+        try:
+            # Thats it, hit send and we'll take care of the rest.
+
+            results = gateway.sendMessage(to, message)
+
+            for recipient in results:
+                # status is either "Success" or "error message"
+                print 'number=%s;status=%s;messageId=%s;cost=%s' %(recipient['number'],
+                                                                recipient['status'],
+                                                                recipient['messageId'],
+                                                                recipient['cost'])
+        except AfricasTalkingGatewayException, e:
+            print 'Encountered an error while sending: %s' % str(e)

@@ -2,7 +2,9 @@ from django.shortcuts import get_object_or_404
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
-from .serializers import smsSerializer
+from .serializers import sendSMS
+import json
+from json import dumps, loads
 
 
 #import africastalking helper gateway class
@@ -11,8 +13,8 @@ from .serializers import smsSerializer
 
 class smsList(APIView):
     def post(self,request,format=None):
-        serializer = smsSerializer(data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        print(request.data)
+        serializer = sendSMS(json.dumps(self,request.data.get))
+        if serializer.sendSMS:
+            return Response(serializer, status=status.HTTP_201_CREATED)
+        return Response(status=status.HTTP_400_BAD_REQUEST)

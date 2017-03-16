@@ -30,10 +30,11 @@ export class User {
       .subscribe(res => {
         // If the API returned a successful response, mark the user as logged in
         if(res.json().success) {
+          //let level = this.api.getAccessLevel('api/person/', user,this.options);
           //console.log(res.json());
-          window.localStorage.setItem('user', res.json().token);
+          window.localStorage.setItem('user', res.json().access_token);
           this.isLoggedIn = true;
-          this.userLevel();
+          this.userLevel(res.json().access_token);
         }
       }, err => {
         //console.error('ERROR', err);
@@ -42,19 +43,22 @@ export class User {
     return seq;
   }
 
-  userLevel(){
-    let token = localStorage.getItem('user');
+  userLevel(token){
 
     let headers = new Headers({
       'Content-Type': 'application/x-www-form-urlencoded',
-      'Bearer':'${token}'
+      'Authorization':'Bearer '+token
     });
 
 
     let options = new RequestOptions({headers: headers});
 
-    this.api.getAccessLevel('o/authorize/', options).subscribe(res => {
-            console.log(res);
+    this.api.getAccessLevel('api/person/', options).subscribe(res => {
+            console.log(res.json());
+            window.localStorage.setItem("firstname",res.json().F_Name);
+            window.localStorage.setItem("lastname",res.json().L_Name);
+            window.localStorage.setItem("email",res.json().Email);
+            window.localStorage.setItem("phone",res.json().Phonenumber);
           }, err => {
             //console.error('ERROR', err);
           });
@@ -81,12 +85,7 @@ export class User {
     return seq;
   }
 
-  /**
-   * Log the user out, which forgets the session
-   */
-  logout() {
-    this._user = null;
-  }
+
 
   /**
    * Process a login/signup response to store user data
