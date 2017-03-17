@@ -5,6 +5,8 @@ import { TranslateService } from 'ng2-translate/ng2-translate';
 
 import { MainPage } from '../../pages/pages';
 import { FirstRunPage } from '../../pages/pages';
+import { SuperPage } from '../../pages/pages';
+
 import { User } from '../../providers/user';
 
 @Component({
@@ -47,15 +49,28 @@ export class LoginPage {
     this.login = "username="+phone+"&password="+password+"&grant_type=password&client_id=fjTgW84SioZFHV5hG0u3XPiCdNqELDjxI4Z9sH5w"
     //"phone="+phone+"&password="+password+"&grant_type=password&client_id=vqUG5XpzODxbtwFFY9qrOvhOxjPabJBEj5zcSjZL";
     this.user.login(this.login).subscribe((resp) => {
-      console.log(resp.json());
-      this.user.userLevel(resp.json().access_token)
-      let loader = this.loadingCtrl.create({
-        content: "Logging In",
-        duration: 2000
-      });
-      loader.present();
+      //console.log(resp.json());
 
-      this.navCtrl.push(MainPage);
+      this.user.userLevel(resp.json().access_token).subscribe((data)=>{
+        let loader = this.loadingCtrl.create({
+          content: "Logging In",
+          duration: 2000
+        });
+        loader.present();
+
+        var access_level = data.json();
+        if(access_level != "Super Admin"){
+          this.navCtrl.setRoot(MainPage);
+          window.localStorage.setItem("firstname",access_level.F_Name);
+          window.localStorage.setItem("lastname",access_level.L_Name);
+          window.localStorage.setItem("email",access_level.Email);
+          window.localStorage.setItem("phone",access_level.Phonenumber);
+        }else{
+          this.navCtrl.setRoot(SuperPage);
+        }
+      })
+
+
     }, (err) => {
       this.navCtrl.push(FirstRunPage);
       // Unable to log in
@@ -67,6 +82,7 @@ export class LoginPage {
       toast.present();
     });
   }
+
 
 
 

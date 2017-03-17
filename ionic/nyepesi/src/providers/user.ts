@@ -5,6 +5,7 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/toPromise';
 
 
+
 @Injectable()
 export class User {
   _user: any;
@@ -52,16 +53,20 @@ export class User {
 
 
     let options = new RequestOptions({headers: headers});
+    let access = this.api.getAccessLevel('api/person/', options);
+    access.subscribe(res => {
+            //console.log(res.json());
+            var details = res.json();
 
-    this.api.getAccessLevel('api/person/', options).subscribe(res => {
-            console.log(res.json());
-            window.localStorage.setItem("firstname",res.json().F_Name);
-            window.localStorage.setItem("lastname",res.json().L_Name);
-            window.localStorage.setItem("email",res.json().Email);
-            window.localStorage.setItem("phone",res.json().Phonenumber);
+          /*    window.localStorage.setItem("firstname",res.json().F_Name);
+              window.localStorage.setItem("lastname",res.json().L_Name);
+              window.localStorage.setItem("email",res.json().Email);
+              window.localStorage.setItem("phone",res.json().Phonenumber);
+          */
           }, err => {
             //console.error('ERROR', err);
           });
+      return access;
   }
 
   /**

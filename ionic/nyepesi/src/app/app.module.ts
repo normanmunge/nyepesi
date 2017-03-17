@@ -14,7 +14,11 @@ import { TabsPage } from '../pages/tabs/tabs';
 import { TutorialPage } from '../pages/tutorial/tutorial';
 import { WelcomePage } from '../pages/welcome/welcome';
 import { ListMasterPage } from '../pages/list-master/list-master';
+import { ListAgentsPage } from '../pages/list-agents/list-agents';
 import { ItemCreatePage } from '../pages/item-create/item-create';
+import {SuperadminPage} from '../pages/superadmin/superadmin';
+import {AdminPage} from '../pages/admin/admin';
+import {DisplayPage} from '../pages/display/display';
 import { AgentCreatePage } from '../pages/agent-create/agent-create';
 import { ItemDetailPage } from '../pages/item-detail/item-detail';
 import { MenuPage } from '../pages/menu/menu';
@@ -66,8 +70,12 @@ let pages = [
   TutorialPage,
   WelcomePage,
   ListMasterPage,
+  ListAgentsPage,
   ItemDetailPage,
   ItemCreatePage,
+  SuperadminPage,
+  AdminPage,
+  DisplayPage,
   AgentCreatePage,
   MenuPage,
   SettingsPage,

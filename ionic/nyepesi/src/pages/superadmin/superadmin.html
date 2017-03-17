@@ -1,0 +1,20 @@
+<ion-menu [content]="content">
+  <ion-content>
+    <ion-avatar item-left>
+      <img [src]="assets/img/ian-avatar" />
+    </ion-avatar>
+    <h6>Super Admin</h6>
+    <ion-list class="menuList">
+      <button menuClose ion-item *ngFor="let p of pages" (click)="openPage(p)">
+        {{p.title}}
+      </button>
+    </ion-list>
+  </ion-content>
+  <ion-footer>
+   <button menuClose ion-item (click)="logout()">
+     Logout
+   </button>
+ </ion-footer>
+</ion-menu>
+
+<ion-nav [root]="rootPage" #content swipeBackEnabled="false"></ion-nav>

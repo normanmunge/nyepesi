@@ -2,8 +2,10 @@ import { Component, ViewChild } from '@angular/core';
 import { NavController, Nav } from 'ionic-angular';
 
 import { ContentPage } from '../content/content';
+import { AdminPage } from '../admin/admin';
 import { TabsPage } from '../tabs/tabs';
 
+import { ListAgentsPage } from '../list-agents/list-agents';
 import {SearchPage} from '../search/search';
 import { LoginPage } from '../login/login';
 import { AgentCreatePage } from '../agent-create/agent-create';
@@ -17,36 +19,28 @@ import { SettingsPage } from '../settings/settings';
   Ionic pages and navigation.
 */
 @Component({
-  selector: 'page-menu',
-  templateUrl: 'menu.html'
+  selector: 'page-superadmin',
+  templateUrl: 'superadmin.html'
 })
-export class MenuPage {
+export class SuperadminPage {
   // A reference to the ion-nav in our component
   @ViewChild(Nav) nav: Nav;
 
-  firstname: any = window.localStorage.getItem('firstname');
-  lastname: any = window.localStorage.getItem('lastname');
-  email: any = window.localStorage.getItem('email');
-  phone: any = window.localStorage.getItem('phone');
-
-  rootPage: any = TabsPage;
+  rootPage: any = AdminPage;
 
   pages: Array<{title: string, component: any}>;
 
   constructor(public navCtrl: NavController) {
     // used for an example of ngFor and navigation
     this.pages = [
+      { title: 'Register Agent', component: AgentCreatePage },
+      { title: 'List Agents', component: ListAgentsPage },
       { title: 'Register Customer', component: ItemCreatePage },
       { title: 'List Customers', component: TabsPage }
     ];
   }
 
-  ionViewDidLoad() {
-    var firstname: any = window.localStorage.getItem('firstname');
-    var lastname: any = window.localStorage.getItem('lastname');
-    var email: any = window.localStorage.getItem('email');
-    var phone: any = window.localStorage.getItem('phone');
-  }
+  ionViewDidLoad() {}
 
   openPage(page) {
      // Reset the content nav to have just this page
