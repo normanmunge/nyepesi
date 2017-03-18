@@ -7,13 +7,13 @@
 -->
   <ion-list>
     <ion-item-sliding *ngFor="let item of currentItems">
-      <button (click)="presentActionSheet()" ion-item>
+      <button (click)="presentActionSheet(item.id)" ion-item>
         <ion-avatar item-left>
           <ion-icon name="person"></ion-icon>
         </ion-avatar>
         <h2>{{item.F_Name}}</h2>
         <p>{{item.L_Name}}</p>
-        <ion-note item-right>07{{item.Phonenumber}}</ion-note>
+        <ion-note item-right>0{{item.Phonenumber}}</ion-note>
       </button>
 
 

@@ -13,6 +13,8 @@ import { SignupPage } from '../pages/signup/signup';
 import { TabsPage } from '../pages/tabs/tabs';
 import { TutorialPage } from '../pages/tutorial/tutorial';
 import { WelcomePage } from '../pages/welcome/welcome';
+import { EditItemPagePage } from '../pages/edit-item-page/edit-item-page';
+import { EditAgentPagePage } from '../pages/edit-agent-page/edit-agent-page';
 import { ListMasterPage } from '../pages/list-master/list-master';
 import { ListAgentsPage } from '../pages/list-agents/list-agents';
 import { ItemCreatePage } from '../pages/item-create/item-create';
@@ -69,6 +71,8 @@ let pages = [
   TabsPage,
   TutorialPage,
   WelcomePage,
+  EditItemPagePage,
+  EditAgentPagePage,
   ListMasterPage,
   ListAgentsPage,
   ItemDetailPage,

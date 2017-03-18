@@ -18,6 +18,10 @@ export class Api {
     return this.http.get(this.url + '/' + endpoint, options);
   }
 
+  getId(endpoint: string, options?: RequestOptions) {
+    return this.http.get(this.url + '/' + endpoint, options);
+  }
+
   getList(endpoint: string, options?: RequestOptions) {
     return this.http.get(this.url + '/' + endpoint, options);
   }
@@ -32,11 +36,11 @@ export class Api {
 
 
   put(endpoint: string, body: any, options?: RequestOptions) {
-    return this.http.put(this.url + '/' + endpoint, body, options);
+    return this.http.put(this.url + '/' + endpoint +'/', body, options);
   }
 
-  delete(endpoint: string, body: any, options?: RequestOptions) {
-    return this.http.post(this.url + '/' + endpoint, body, options);
+  delete(endpoint: string, options?: RequestOptions) {
+    return this.http.delete(this.url + '/' + endpoint +'/', options);
   }
 
   patch(endpoint: string, body: any, options?: RequestOptions) {

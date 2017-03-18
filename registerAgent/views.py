@@ -70,8 +70,8 @@ class registerAgentList(APIView):
 
     def sendSMS(self,phonenumber,f_name,l_name):
         # Specify your login credentials
-        username = "normanmunge"
-        apikey   = "e99917d095881a6a3400380d124ef051e3383c51480e078ef9c1f9778badeca1"
+        username = "Nyepesi"
+        apikey   = "0b7e1db47d7a2afb61bf9a5212f7243831764707d78396a372a6fd018f3db85e"
 
         # Please ensure you include the country code (+254 for Kenya in this case)
         to      = phonenumber
@@ -93,3 +93,31 @@ class registerAgentList(APIView):
                                                                 recipient['cost'])
         except AfricasTalkingGatewayException, e:
             print 'Encountered an error while sending: %s' % str(e)
+
+class registerAgentDetail(APIView):
+    """
+    Retrieve, update or delete a user instance.
+    """
+    def get_object(self, pk):
+        try:
+            return registerAgent.objects.get(pk=pk)
+        except registerAgent.DoesNotExist:
+            raise Http404
+
+    def get(self, request, pk, format=None):
+        agent = self.get_object(pk)
+        agent = registerAgentSerializer(agent)
+        return Response(agent.data)
+
+    def put(self, request, pk, format=None):
+        agent = self.get_object(pk)
+        serializer = registerAgentSerializer(agent, data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    def delete(self, request, pk, format=None):
+        agent = self.get_object(pk)
+        agent.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)

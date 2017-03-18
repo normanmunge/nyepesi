@@ -31,8 +31,8 @@ class registerCustomerList(APIView):
 
     def sendSMS(self,phonenumber,f_name,l_name):
         # Specify your login credentials
-        username = "normanmunge"
-        apikey   = "e99917d095881a6a3400380d124ef051e3383c51480e078ef9c1f9778badeca1"
+        username = "Nyepesi"
+        apikey   = "0b7e1db47d7a2afb61bf9a5212f7243831764707d78396a372a6fd018f3db85e"
 
         # Please ensure you include the country code (+254 for Kenya in this case)
         to      = phonenumber
@@ -73,7 +73,7 @@ class registerCustomerDetail(APIView):
 
     def put(self, request, pk, format=None):
         customer = self.get_object(pk)
-        serializer = registerCustomerSerializer(user, data=request.data)
+        serializer = registerCustomerSerializer(customer, data=request.data)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data)

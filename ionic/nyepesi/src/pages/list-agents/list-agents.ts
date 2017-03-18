@@ -1,8 +1,10 @@
 import { Component } from '@angular/core';
-import { NavController, ModalController,NavParams,ActionSheetController } from 'ionic-angular';
+import { NavController, ToastController,ModalController,NavParams,ActionSheetController } from 'ionic-angular';
+import { Http,Headers,RequestOptions} from '@angular/http';
 
 
 import { ItemCreatePage } from '../item-create/item-create';
+import { EditAgentPagePage } from '../edit-agent-page/edit-agent-page';
 import { AgentCreatePage } from '../agent-create/agent-create';
 
 import { Items } from '../../providers/items';
@@ -16,7 +18,7 @@ import { Api } from '../../providers/api';
 export class ListAgentsPage {
   currentItems: {};
 
-  constructor(public actionSheetCtrl: ActionSheetController, public navCtrl: NavController, public items: Items, public modalCtrl: ModalController, public navParams: NavParams, public api: Api)
+  constructor(public actionSheetCtrl: ActionSheetController, public navCtrl: NavController,public toastCtrl: ToastController, public items: Items, public modalCtrl: ModalController, public navParams: NavParams, public api: Api)
   {}
 
   /**
@@ -47,20 +49,57 @@ export class ListAgentsPage {
       });
   }
 
-  presentActionSheet(){
+  presentActionSheet(id){
+    let headers = new Headers({
+      'Content-Type': 'application/x-www-form-urlencoded'
+    });
+
+    let options = new RequestOptions({headers: headers});
+
     let actionSheet = this.actionSheetCtrl.create({
       title: 'Customer',
       buttons:[
         {
           text: 'Edit',
           handler: () =>{
-            console.log('Edit Agent');
+            //this.api.getId('api/editcustomers/'+id, options).subscribe((resp) => {
+              console.log('Edit Customer');
+              //this.navCtrl.push(EditItemPagePage);
+              this.api.get('api/editagents/'+id, options).subscribe((data) => {
+
+                this.navCtrl.push(EditAgentPagePage,{
+                  id:data.json().id,
+                  f_name: data.json().F_Name,
+                  l_name:data.json().L_Name,
+                  phone:data.json().Phonenumber,
+                  email:data.json().Email,
+                  county:data.json().County,
+                  constituency:data.json().Constituency,
+                  locality:data.json().Locality,
+                  user:data.json().User
+                });
+              },(err) => {
+                  console.log(err);
+              }
+            )
           }
         },{
           text: 'Delete',
-          handler: () =>{
-            console.log('Delete Agent');
-          }
+          handler: (item) =>{
+            this.api.delete('api/editagents/'+id, options).subscribe((resp) => {
+              this.deleteItem(id);
+
+              let toast = this.toastCtrl.create({
+                message: "Agent successfully deleted",
+                duration: 2000,
+                position: 'top'
+              });
+              toast.present();
+              this.navCtrl.push(ListAgentsPage);
+            },(err) => {
+                console.log(err);
+            }
+          )}
         },{
           text: 'Cancel',
           role: 'cancel',

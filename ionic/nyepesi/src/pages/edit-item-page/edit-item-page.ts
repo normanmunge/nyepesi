@@ -1,32 +1,30 @@
 import { Component, ViewChild } from '@angular/core';
 import { Validators, FormBuilder, FormGroup } from '@angular/forms';
-import { NavController, ToastController, ViewController } from 'ionic-angular';
+import { NavController, NavParams, ToastController, ViewController } from 'ionic-angular';
 import { Injectable,Inject } from '@angular/core';
 import { TabsPage } from '../tabs/tabs';
 import { Http,Headers,RequestOptions} from '@angular/http';
 import { Api } from '../../providers/api';
-import { ListMasterPage } from '../list-master/list-master';
+import { ListMasterPage} from '../list-master/list-master';
 
 
-/*
-  Generated class for the ItemCreate page.
 
-  See http://ionicframework.com/docs/v2/components/#navigation for more info on
-  Ionic pages and navigation.
-*/
 @Component({
-  selector: 'page-item-create',
-  templateUrl: 'item-create.html',
-  providers:[Api]
+  selector: 'page-edit-item-page',
+  templateUrl: 'edit-item-page.html'
 })
-export class ItemCreatePage {
+export class EditItemPagePage {
 
   isReadyToSave: boolean;
 
   item: any;
   form: FormGroup;
+  f_name:any;
+  l_name: any;
+  phonenum: any;
+  id: any;
 
-  constructor(public navCtrl: NavController, public viewCtrl: ViewController, public api: Api, formBuilder: FormBuilder,public toastCtrl: ToastController,) {
+  constructor(public navCtrl: NavController,private navParams: NavParams, public viewCtrl: ViewController, public api: Api, formBuilder: FormBuilder,public toastCtrl: ToastController,) {
     this.form = formBuilder.group({
       f_name: ['', Validators.required],
       l_name: ['', Validators.required],
@@ -40,7 +38,10 @@ export class ItemCreatePage {
   }
 
   ionViewDidLoad() {
-
+    this.f_name = this.navParams.get("f_name");
+    this.l_name = this.navParams.get("l_name");
+    this.phonenum = this.navParams.get("phone");
+    this.id = this.navParams.get("id");
   }
   /**
    * The user cancelled, so we dismiss without sending data back.
@@ -50,11 +51,17 @@ export class ItemCreatePage {
   }
 
   // Create new customer
-  private newUser = "New Customer Created"
-  createItem() {
-    var firstname = this.form.value.f_name;
-    var lastname = this.form.value.l_name;
-    var phone = this.form.value.phone;
+  editItem() {
+    //var change;
+    //if(this.editItem()){
+    var firstname = this.form.value.f_name  || this.f_name;
+    var lastname = this.form.value.l_name || this.l_name;
+    var phone =  this.form.value.phone || this.phonenum;
+    //}
+    //var firstname = this.form.value.f_name;
+    //var lastname = this.form.value.l_name;
+    //var phone = this.form.value.phone;
+
     this.item = "F_Name="+firstname+"&L_Name="+lastname+"&Phonenumber="+phone
 
     let headers = new Headers({
@@ -63,13 +70,13 @@ export class ItemCreatePage {
 
     let options = new RequestOptions({headers: headers});
 
-    let seq = this.api.post('api/customers/', this.item, options);
+    let seq = this.api.put('api/editcustomers/'+this.id, this.item, options);
 
     seq
       .subscribe(res => {
         //display success message
         let toast = this.toastCtrl.create({
-          message: this.newUser,
+          message: 'Edited User'+this.f_name+' '+this.l_name,
           duration: 3000,
           position: 'top'
         });
@@ -79,7 +86,6 @@ export class ItemCreatePage {
         this.navCtrl.push(ListMasterPage,{
           newdata: this.item
         });
-        this.navCtrl.push(TabsPage, {index: "1"});
 
         //close the modal
         this.viewCtrl.dismiss(this.form.value);

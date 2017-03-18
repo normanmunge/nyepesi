@@ -6,6 +6,7 @@ from rest_framework.urlpatterns import format_suffix_patterns
 from rest_framework import permissions, routers, serializers, viewsets
 from oauth2_provider.ext.rest_framework import TokenHasReadWriteScope, TokenHasScope
 from registerAgent.views import registerAgentList
+from registerAgent.views import registerAgentDetail
 from registerCustomer.views import registerCustomerList
 from registerCustomer.views import registerCustomerDetail
 from person.views import personList
@@ -15,9 +16,11 @@ urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^api/agents/', registerAgentList.as_view(),name="agent-list-create"),
     url(r'^api/customers/', registerCustomerList.as_view(),name="customer-list-create"),
+    url(r'^api/editcustomers/(?P<pk>[0-9]+)/$', registerCustomerDetail.as_view()),
     url(r'^api/person/', personList.as_view()),
     url(r'^o/', include('oauth2_provider.urls', namespace='oauth2_provider')),
-    url(r'^customers/(?P<pk>[0-9]+)/$', registerCustomerDetail.as_view(), name="Customer Details")
+    url(r'^customers/(?P<pk>[0-9]+)/$', registerCustomerDetail.as_view(), name="Customer Details"),
+    url(r'^api/editagents/(?P<pk>[0-9]+)/$', registerAgentDetail.as_view(), name="Customer Details")
 ]
 
 urlpatterns = format_suffix_patterns(urlpatterns)
